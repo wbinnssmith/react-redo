@@ -1,5 +1,5 @@
-import Immutable from 'immutable';
 import express from 'express';
+import keyBy from 'lodash/keyBy';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -25,7 +25,8 @@ app.use('/api/v1/todos', todos);
 // Recipe from http://redux.js.org/docs/recipes/ServerRendering.html
 app.get('/', function (req, res) {
   Todo.fetchAll().then(todos => {
-    const store = createStore({ todos: (todos.toJSON()) });
+    const byId = keyBy(todos.toJSON(), 'id');
+    const store = createStore({ todos: byId });
     const appHtml = renderToString(
       <Provider store={store}>
         <App />
@@ -44,6 +45,7 @@ function renderIndex(appHtml, initialState) {
     <html>
       <head>
         <title>Redo Todo List</title>
+        <script src="https://cdn.polyfill.io/v2/polyfill.js?features=es6,intl" defer></script>
         <script src="/static/index.js" defer></script>
         <link rel="stylesheet" href="/static/index.css"></link>
       </head>

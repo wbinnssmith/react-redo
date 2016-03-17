@@ -22,6 +22,10 @@ todos.param('id', function(req, res, next, id) {
 })
 
 todos.get('/', function getTodos(req, res) {
+  // performance note: this pulls the entire Todos
+  // table into memory, serializes it, and sends in a single
+  // response. Pagination here and in the client is a better
+  // alternative.
   Todo.fetchAll().then(todos => {
     res.json(todos);
   })
@@ -39,7 +43,7 @@ todos.patch('/:id', function updateTodo(req, res) {
   req.sanitizeBody('description').toString();
   req.sanitizeBody('completed_at').toDate();
 
-  req.todo.save(req.params).then(todo => {
+  req.todo.save(req.body).then(todo => {
     res.json(todo);
   })
 });

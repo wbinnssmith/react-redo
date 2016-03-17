@@ -5,16 +5,30 @@ body {
   font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Helvetica Neue", sans-serif;
 }
 
-.wrapper {
+.App {
   margin: 2rem auto;
   padding: 2rem;
   max-width: 30rem;
 }
 
 .TodoList {
+  padding: 0;
   list-style: none;
 }
 
 .Todo {
+  display: flex;
+  padding: 1rem 0;
+}
 
+.Todo--circle {
+  background-color: transparent;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 100%;
+  border: 1px solid gray;
+}
+
+.is-filled {
+  background-color: red;
 }
