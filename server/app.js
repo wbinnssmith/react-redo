@@ -45,6 +45,7 @@ function renderIndex(appHtml, initialState) {
       <head>
         <title>Redo Todo List</title>
         <script src="/static/index.js" defer></script>
+        <link rel="stylesheet" href="/static/index.css"></link>
       </head>
       <body>
         <div id="react-root">${appHtml}</div>
