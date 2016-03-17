@@ -4,7 +4,7 @@ import { pure } from 'recompose';
 const Todo = ownProps => {
   const { todo, ...props } = ownProps;
   return (
-    <li {...props}>
+    <li className="Todo" {...props}>
       {todo.description}
     </li>
   );

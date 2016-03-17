@@ -6,7 +6,7 @@ import TodoList from './components/todo-list';
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <h1>Todos!</h1>
         <TodoList />
       </div>

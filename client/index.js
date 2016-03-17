@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './app';
 import createStore from './store';
+import './app.css';
 
 // for react devtools
 global.React = React;
