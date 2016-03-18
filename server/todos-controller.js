@@ -9,7 +9,7 @@ const todos = express();
 todos.use(bodyParser.json());
 todos.use(validator());
 
-todos.param('id', function(req, res, next, id) {
+todos.param('id', function (req, res, next, id) {
   new Todo({ id }).fetch()
     .then(todo => {
       req.todo = todo;
@@ -18,17 +18,17 @@ todos.param('id', function(req, res, next, id) {
     .catch(e => {
       res.status(statuses.UNPROCESSABLE_ENTITY);
       next(e);
-    })
-})
+    });
+});
 
 todos.get('/', function getTodos(req, res) {
   // performance note: this pulls the entire Todos
   // table into memory, serializes it, and sends in a single
   // response. Pagination here and in the client is a better
   // alternative.
-  Todo.fetchAll().then(todos => {
-    res.json(todos);
-  })
+  Todo.fetchAll().then(all => {
+    res.json(all);
+  });
 });
 
 todos.post('/', function addTodo(req, res) {
@@ -45,14 +45,14 @@ todos.patch('/:id', function updateTodo(req, res) {
 
   req.todo.save(req.body).then(todo => {
     res.json(todo);
-  })
+  });
 });
 
 todos.delete('/:id', function deleteTodo(req, res) {
   req.todo.destroy().then(() => {
     res.status(statuses.OK);
     res.json();
-  })
-})
+  });
+});
 
 export default todos;

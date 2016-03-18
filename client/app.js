@@ -10,13 +10,13 @@ import LinkButton from './components/link-button';
 import NewTodoForm from './components/new-todo-form';
 import TodoList from './components/todo-list';
 
-function stateToProps(state, props) {
+function stateToProps(state) {
   return {
     isEditing: state.ui.isEditing,
     todoCount: Object.keys(state.todos).length,
     completedCount: _.filter(state.todos, t => t.completed_at).length
-  }
-};
+  };
+}
 
 const dispatchToProps = {
   addTodo,
@@ -46,7 +46,7 @@ class App extends React.Component {
           </LinkButton>
         </header>
         <TodoList />
-        <NewTodoForm onSubmit={addTodo}/>
+        <NewTodoForm onSubmit={addTodo} />
       </div>
     );
   }

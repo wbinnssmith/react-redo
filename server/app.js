@@ -28,8 +28,8 @@ app.use('/api/v1/todos', todos);
 app.get('/', function (req, res) {
   // Performance note: loads the entire todos table to serialize
   // into a single response. Only suitable for demo apps like this :)
-  Todo.fetchAll().then(todos => {
-    const byId = keyBy(todos.toJSON(), 'id');
+  Todo.fetchAll().then(all => {
+    const byId = keyBy(all.toJSON(), 'id');
     const store = createStore({ todos: byId });
     const appHtml = renderToString(
       <Provider store={store}>
@@ -38,8 +38,8 @@ app.get('/', function (req, res) {
     );
 
     res.send(renderIndex(appHtml, store.getState()));
-  })
-})
+  });
+});
 
 function renderIndex(appHtml, initialState) {
   // security note: literal string interpolation. React-rendered content
