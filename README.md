@@ -4,7 +4,7 @@ Everybody's favorite demonstration app of the frontend! Build with react and red
 
 Todos are sent over HTTP from the browser and persisted in a local database (sqlite3 in development).
 
-![a demonstration of react-redo]()
+![a demonstration of react-redo](https://cloud.githubusercontent.com/assets/755844/13888398/7ababd4e-ecfe-11e5-976e-595d4df865d9.gif)
 
 ## Development: getting started
 
