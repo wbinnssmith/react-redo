@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { pure } from 'recompose';
 
 import Todo from './todo';
-import { toggleTodo } from '../modules/todos';
+import { toggleTodo, updateTodo } from '../modules/todos';
 
 function stateToProps(state, props) {
   return {
@@ -13,12 +13,13 @@ function stateToProps(state, props) {
 }
 
 const dispatchToProps = {
-  toggleTodo
+  toggleTodo,
+  updateTodo
 }
 
 class TodoList extends React.Component {
   render() {
-    const { todos, toggleTodo } = this.props;
+    const { todos, toggleTodo, updateTodo } = this.props;
 
     return (
       <ul className="TodoList">
@@ -27,6 +28,7 @@ class TodoList extends React.Component {
             todo={todo}
             key={todo.id}
             onToggle={() => toggleTodo(todo.id)}
+            onUpdate={attrs => updateTodo(todo.id, attrs)}
           />
         )}
       </ul>

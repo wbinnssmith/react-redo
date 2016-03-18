@@ -1,6 +1,8 @@
 import React from 'react';
 import { pure } from 'recompose';
 
+import LinkButton from './link-button';
+
 class NewTodoForm extends React.Component {
   constructor() {
     super();
@@ -8,7 +10,9 @@ class NewTodoForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  state = {}
+  state = {
+    description: ''
+  }
 
   handleChange(e) {
     e.preventDefault();
@@ -17,15 +21,26 @@ class NewTodoForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.onSubmit(this.state);
+    this.setState({ description: '' });
+  }
+
+  isValid() {
+    return !!this.state.description.length;
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input placeholder="+ New Todo" type="text" onChange={this.handleChange} value={this.state.description} />
-        <button>Add</button>
+      <form className="NewTodoForm" onSubmit={this.handleSubmit}>
+        <input
+          className="NewTodoForm--input"
+          placeholder="what are you up to today?"
+          onChange={this.handleChange}
+          value={this.state.description}
+        />
+        <LinkButton disabled={!this.isValid()}>Add</LinkButton>
       </form>
-    )
+    );
   }
 }
 

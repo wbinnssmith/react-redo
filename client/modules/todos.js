@@ -1,37 +1,62 @@
-import request from 'xhr';
+import axios from 'axios';
 
-const TOGGLE_TODO = 'TODOS/TOGGLE_TODO';
+const ADD_TODO = 'TODOS/ADD_TODO';
+const UPDATE_TODO = 'TODOS/UPDATE_TODO';
 
-export function toggleTodo(id) {
+export function addTodo(attrs) {
   return function (dispatch, getState) {
-    const todo = getState().todos[id];
-    const completed_at = todo.completed_at ? null: new Date().toISOString();
-
-    request.patch(`/api/v1/todos/${id}`, {
-      json: { completed_at },
-    }, (err, resp) => {
+    axios.post(`/api/v1/todos`, attrs).then(resp => {
       dispatch({
-        type: TOGGLE_TODO,
+        type: ADD_TODO,
         payload: {
-          todo: resp.body
+          todo: resp.data
         }
       });
     });
   }
 }
 
+export function updateTodo(id, attrs) {
+  return function (dispatch, getState) {
+    const todo = getState().todos[id];
+
+    axios.patch(`/api/v1/todos/${id}`, attrs).then(resp => {
+      dispatch({
+        type: UPDATE_TODO,
+        payload: {
+          todo: resp.data
+        }
+      });
+    });
+  }
+}
+
+export function toggleTodo(id) {
+  return function (dispatch, getState) {
+    const todo = getState().todos[id];
+    const completed_at = todo.completed_at ? null: new Date().toISOString();
+
+    updateTodo(id, { completed_at })(dispatch, getState);
+  }
+}
+
+function updateFromAction(state, action) {
+  const todo = action.payload.todo;
+
+  return {
+    ...state,
+    [todo.id]: {
+      ...todo
+    }
+  };
+}
+
 export default function Todos(state={}, action) {
   switch (action.type) {
-    case TOGGLE_TODO:
-      const todo = action.payload.todo;
-
-      debugger;
-      return {
-        ...state,
-        [todo.id]: {
-          ...todo
-        }
-      };
+    case UPDATE_TODO:
+      return updateFromAction(state, action);
+    case ADD_TODO:
+      return updateFromAction(state, action);
     default:
       return state;
   }

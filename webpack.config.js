@@ -1,10 +1,11 @@
 import path from 'path';
-import autoprefixer from 'autoprefixer';
+import cssnext from 'postcss-cssnext';
 import atImport from 'postcss-import';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import cssnext from 'postcss-cssnext';
 
 module.exports = {
+  devtool: 'source-map',
+  
   entry: {
     index: path.join(__dirname, 'client', 'index.js')
   },
@@ -14,10 +15,14 @@ module.exports = {
     filename: '[name].js'
   },
 
-  postcss: [atImport, autoprefixer],
+  postcss: [atImport, cssnext],
 
   module: {
     loaders: [
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

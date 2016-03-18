@@ -1,14 +1,29 @@
 @import 'normalize.css';
 
+:root {
+  --blue: #007aff;
+  --green: #4cd964;
+}
+
 body {
   /* variation on https://medium.com/designing-medium/system-shock-6b1dc6d6596f#.gyp4g4adt */
   font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Helvetica Neue", sans-serif;
+  color: gray(64);
 }
 
 .App {
   margin: 2rem auto;
   padding: 2rem;
-  max-width: 30rem;
+  max-width: 32rem;
+}
+
+.App--header {
+  display: flex;
+  align-items: center;
+}
+
+.App--heading {
+  flex: 1;
 }
 
 .TodoList {
@@ -16,19 +31,56 @@ body {
   list-style: none;
 }
 
-.Todo {
+.Todo--form {
   display: flex;
-  padding: 1rem 0;
+  align-items: center;
+  padding: .5rem 0;
 }
 
 .Todo--circle {
+  margin-right: 1rem;
   background-color: transparent;
   height: 2rem;
   width: 2rem;
+  flex-shrink: 0;
   border-radius: 100%;
   border: 1px solid gray;
 }
 
+.Todo--circle:hover {
+  background-color: color(var(--green) alpha(20%));
+}
+
+.Todo--description, .NewTodoForm--input {
+  font-size: 1.5rem;
+  line-height: 1;
+  outline: 0;
+  border: 0;
+}
+
+.NewTodoForm {
+  display: flex;
+}
+
+.NewTodoForm--input {
+  flex: 1;
+  font-style: italic;
+}
+
+.Todo--description:focus {
+  color: gray(128);
+}
+
 .is-filled {
-  background-color: red;
+  background-color: var(--green);
+}
+
+.LinkButton {
+  color: var(--blue);
+  background-color: transparent;
+  border: 0;
+}
+
+.LinkButton:disabled {
+  color: color(var(--blue) alpha(60%))
 }
