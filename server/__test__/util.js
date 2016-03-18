@@ -1,11 +1,11 @@
 import app from '../app';
 import axios from 'axios';
 
-function makeServer() {
+export function makeServer() {
   return app.listen(0);
 }
 
-function request(server) {
+export function request(server) {
   const address = server.address();
 
   return axios.create({
