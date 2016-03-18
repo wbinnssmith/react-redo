@@ -1,24 +1,18 @@
-// Update with your config settings.
+function sqlite(filename) {
+  return {
+    client: 'sqlite3',
+    connection: { filename },
+    migrations: { tableName: 'knex_migrations' },
+    useNullAsDefault: true
+  };
+}
 
 module.exports = {
-  development: {
-    client: 'sqlite3',
-    connection: {
-      filename: 'db.sqlite3'
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    },
-    useNullAsDefault: true
-  },
-
+  development: sqlite('development.db'),
+  test: sqlite('test.db'),
   production: {
     client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10

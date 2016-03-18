@@ -14,7 +14,9 @@ import todos from './todos-controller';
 import webpackConfig from '../webpack.config';
 
 const app = express();
-app.use('/static', webpackMiddleware(webpack(webpackConfig)));
+if (process.env.NODE_ENV === 'development') {
+  app.use('/static', webpackMiddleware(webpack(webpackConfig)));
+}
 
 app.use('/api/v1/todos', todos);
 
@@ -24,6 +26,8 @@ app.use('/api/v1/todos', todos);
 //
 // Recipe from http://redux.js.org/docs/recipes/ServerRendering.html
 app.get('/', function (req, res) {
+  // Performance note: loads the entire todos table to serialize
+  // into a single response. Only suitable for demo apps like this :)
   Todo.fetchAll().then(todos => {
     const byId = keyBy(todos.toJSON(), 'id');
     const store = createStore({ todos: byId });

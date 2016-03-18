@@ -19,6 +19,7 @@ body {
   padding: 1rem 3rem;
   max-width: 32rem;
   background-color: white;
+  border-radius: 4px;
 }
 
 .App--header {

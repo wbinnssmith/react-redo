@@ -5,7 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./node_modules/.bin/babel-node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test ava"
+  },
+  "ava": {
+    "files": [
+      "**/__test__/**.js"
+    ],
+    "require": [
+      "babel-register"
+    ]
   },
   "keywords": [
     "react",
@@ -52,6 +60,8 @@
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.9.1"
+    "ava": "^0.13.0",
+    "nodemon": "^1.9.1",
+    "supertest-as-promised": "^3.0.0"
   }
 }
