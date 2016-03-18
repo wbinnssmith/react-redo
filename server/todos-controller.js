@@ -48,4 +48,11 @@ todos.patch('/:id', function updateTodo(req, res) {
   })
 });
 
+todos.delete('/:id', function deleteTodo(req, res) {
+  req.todo.destroy().then(() => {
+    res.status(statuses.OK);
+    res.json();
+  })
+})
+
 export default todos;

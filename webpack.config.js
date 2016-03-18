@@ -1,11 +1,12 @@
 import path from 'path';
 import cssnext from 'postcss-cssnext';
 import atImport from 'postcss-import';
+import url from 'postcss-url';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 module.exports = {
   devtool: 'source-map',
-  
+
   entry: {
     index: path.join(__dirname, 'client', 'index.js')
   },
@@ -15,7 +16,7 @@ module.exports = {
     filename: '[name].js'
   },
 
-  postcss: [atImport, cssnext],
+  postcss: [atImport, cssnext, url({ url: 'inline' })],
 
   module: {
     loaders: [
