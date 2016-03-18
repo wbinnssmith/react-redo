@@ -10,6 +10,7 @@ function sqlite(filename) {
 module.exports = {
   development: sqlite('development.db'),
   test: sqlite('test.db'),
+
   production: {
     client: 'postgresql',
     connection: process.env.DATABASE_URL,
