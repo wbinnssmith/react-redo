@@ -3,18 +3,22 @@
 :root {
   --blue: #007aff;
   --green: #4cd964;
+  --red: #ff3b30;
+  --darkRed: color(var(--red) blackness(+5%));
 }
 
 body {
   /* variation on https://medium.com/designing-medium/system-shock-6b1dc6d6596f#.gyp4g4adt */
   font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Helvetica Neue", sans-serif;
   color: gray(64);
+  background-color: gray(250);
 }
 
 .App {
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 3rem auto;
+  padding: 1rem 3rem;
   max-width: 32rem;
+  background-color: white;
 }
 
 .App--header {
@@ -28,6 +32,7 @@ body {
 
 .TodoList {
   padding: 0;
+  margin-bottom: 2rem;
   list-style: none;
 }
 
@@ -47,7 +52,17 @@ body {
   border: 1px solid gray;
 }
 
-.Todo--circle:hover {
+.Todo--circle.is-editing {
+  background-color: var(--red);
+  background-image: url('./img/rectangle.svg');
+  border-color: var(--red);
+}
+
+.Todo--circle.is-editing:hover {
+  background-color: var(--darkRed);
+}
+
+.Todo--circle:not(.is-editing):hover {
   background-color: color(var(--green) alpha(20%));
 }
 
