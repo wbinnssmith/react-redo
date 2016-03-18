@@ -6,10 +6,6 @@ import App from './app';
 import createStore from './store';
 import './app.css';
 
-// for react devtools
-global.React = React;
-global.ReactDOM = React;
-
 const store = createStore(window.__INITIAL__STATE__);
 
 ReactDOM.render(

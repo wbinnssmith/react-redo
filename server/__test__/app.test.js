@@ -1,12 +1,10 @@
 import test from 'ava';
-import request from 'supertest';
 
-import app from '../app';
-const agent = request.agent(app);
+import { makeServer, request } from './util.js';
 
-test.cb('retrieving /', t => {
-  const res = agent
-    .get('/')
-    .expect(404, /what are you up to tody\?/)
-    .end(t.end)
+test('retrieving /', async t => {
+  const server = makeServer();
+  const res = await request(server).get('/');
+  t.ok(res.status, 404);
+  t.ok(res.data, /what are you up to today\?/);
 });

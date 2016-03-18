@@ -19,7 +19,7 @@ const dispatchToProps = {
   updateTodo
 }
 
-class TodoList extends React.Component {
+export class TodoList extends React.Component {
   render() {
     const { deleteTodo, isEditing, todos, toggleTodo, updateTodo } = this.props;
 

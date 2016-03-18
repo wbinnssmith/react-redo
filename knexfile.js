@@ -8,8 +8,8 @@ function sqlite(filename) {
 }
 
 module.exports = {
-  development: sqlite('development.db'),
-  test: sqlite('test.db'),
+  development: sqlite('development.sqlite3'),
+  test: sqlite('test.sqlite3'),
 
   production: {
     client: 'postgresql',
