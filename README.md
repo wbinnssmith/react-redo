@@ -8,6 +8,8 @@ Todos are sent over HTTP from the browser and persisted in a local database (sql
 
 ## Development: getting started
 
+react-redo requires at least *Node.js v5* and *npm 3*
+
 1. Clone this repository
 2. `npm install && npm run migrate && npm run dev`
 3. Navigate to localhost on `$PORT` (3000 by default)
