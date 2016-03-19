@@ -1,3 +1,5 @@
+const path = require('path');
+
 function sqlite(filename) {
   return {
     client: 'sqlite3',
@@ -8,8 +10,8 @@ function sqlite(filename) {
 }
 
 module.exports = {
-  development: sqlite('development.sqlite3'),
-  test: sqlite('test.sqlite3'),
+  development: sqlite(path.join(__dirname, 'development.sqlite3')),
+  test: sqlite(path.join(__dirname, 'test.sqlite3')),
 
   production: {
     client: 'postgresql',

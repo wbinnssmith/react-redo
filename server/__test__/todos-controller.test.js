@@ -1,10 +1,12 @@
 import test from 'ava';
 
-import { makeServer, request } from './util.js';
+import { makeServer, resetDb, request } from './_util';
+
+test.beforeEach(() => resetDb());
 
 test('creating a todo', async t => {
   const server = makeServer();
-  const res = await request(server).post('/todos', {
+  const res = await request(server).post('/api/v1/todos', {
     description: 'My First Todo'
   });
 
@@ -14,26 +16,26 @@ test('creating a todo', async t => {
 
 test('retrieving todos at /todos', async t => {
   const server = makeServer();
-  const created = await request(server).post('/todos', {
+  const created = await request(server).post('/api/v1/todos', {
     description: 'My First Todo'
   });
 
-  const res = await request(server).get('/todos');
+  const res = await request(server).get('/api/v1/todos');
   t.is(res.status, 200);
-  t.is(res.data[created.data.id].description, 'My First Todo');
+  t.is(res.data[0].description, 'My First Todo');
 });
 
 test('deleting a todo at /todo/:id', async t => {
+  await resetDb();
   const server = makeServer();
-  const created = await request(server).post('/todos', {
+  const created = await request(server).post('/api/v1/todos', {
     description: 'My First Todo'
   });
 
-  const deleted = await request(server).delete(`/todos/${created.data.id}`);
+  const deleted = await request(server).delete(`/api/v1/todos/${created.data.id}`);
   t.is(deleted.status, 200);
-  t.is(deleted.data, 'My First Todo');
 
-  const list = await request(server).get('/todos');
+  const list = await request(server).get('/api/v1/todos');
   t.is(list.status, 200);
-  t.is(list.data, []);
+  t.same(list.data, []);
 });

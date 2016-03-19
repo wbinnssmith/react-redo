@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { makeServer, request } from './util.js';
+import { makeServer, request } from './_util';
 
 test('retrieving /', async t => {
   const server = makeServer();

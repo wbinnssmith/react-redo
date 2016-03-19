@@ -1,24 +1,24 @@
 import test from 'ava';
+import React from 'react';
 import { shallow } from 'enzyme';
-import thunk from 'redux-thunk';
 
 import Todo from '../todo';
 import { TodoList } from '../todo-list';
 
 test('todolist renders todo components for each todo in the store', t => {
+  t.plan(1);
   const rendered = shallow(
-    <TodoList
+    React.createElement(TodoList, {
       isEditing: false,
-      todos={{
-        1: {
-          description: "my first todo"
+      todos: [
+        {
+          description: 'my first todo'
         },
-        2: {
-          description: "my second todo"
+        {
+          description: 'my second todo'
         }
-      }}
-    />
-  );
+      ]
+    }));
 
-  t.ok(rendered.find(Todo).length, 2);
+  t.is(rendered.find(Todo).length, 2);
 });
